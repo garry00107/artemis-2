@@ -2,15 +2,17 @@
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "client/dist",
   "framework": null,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/orion/$1" }
-  ],
+  "public": true,
+  "functions": {
+    "api/**/*.js": {
+      "includeFiles": "api/lib/ephemeris.asc"
+    }
+  },
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Cache-Control", "value": "s-maxage=2, stale-while-revalidate" }
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
       ]
     }
   ]
