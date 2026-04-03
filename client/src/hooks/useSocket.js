@@ -11,9 +11,12 @@ const SERVER_URL = IS_PROD ? '' : 'http://localhost:3001';
  */
 export function useSocket() {
   const socketRef = useRef(null);
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(IS_PROD);
 
   useEffect(() => {
+    // In production, skip Socket.io — data flows via REST polling
+    if (IS_PROD) return;
+
     const socket = io(SERVER_URL, {
       transports: ['websocket', 'polling'],
       reconnection: true,
